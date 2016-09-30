@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3D23C6FD-73E7-44BC-853A-674A30D953D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F907E79-BB3F-4706-BAA6-969BE07429A4}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IssuesManager", "src\IssuesManager\IssuesManager.xproj", "{B59B264A-A497-42E7-B15A-7A04C1132247}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1DFEF1B8-21B6-478B-B569-EE3E6DBCC9EC}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IssuesManager.Test", "IssuesManager.Test\IssuesManager.Test.xproj", "{438B96CD-ED68-47E3-9B79-E8C2FB119BF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B59B264A-A497-42E7-B15A-7A04C1132247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59B264A-A497-42E7-B15A-7A04C1132247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59B264A-A497-42E7-B15A-7A04C1132247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59B264A-A497-42E7-B15A-7A04C1132247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{438B96CD-ED68-47E3-9B79-E8C2FB119BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{438B96CD-ED68-47E3-9B79-E8C2FB119BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{438B96CD-ED68-47E3-9B79-E8C2FB119BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{438B96CD-ED68-47E3-9B79-E8C2FB119BF7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B59B264A-A497-42E7-B15A-7A04C1132247} = {3D23C6FD-73E7-44BC-853A-674A30D953D5}
+		{438B96CD-ED68-47E3-9B79-E8C2FB119BF7} = {1DFEF1B8-21B6-478B-B569-EE3E6DBCC9EC}
+	EndGlobalSection
+EndGlobal
