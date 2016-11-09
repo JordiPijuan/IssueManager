@@ -10,6 +10,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using IssuesManager.DL;
 using IssuesManager.DL.Interfaces;
+using IssuesManager.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Net;
 
 namespace IssuesManager
 {
@@ -41,6 +45,10 @@ namespace IssuesManager
 
             services.AddDbContext<IssuesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddIdentity<IssuesManagerUser, IssuesManagerRole>()
+                .AddEntityFrameworkStores<IssuesContext>()
+                .AddDefaultTokenProviders();
+
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddMvc();
@@ -51,7 +59,7 @@ namespace IssuesManager
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            app.UseIdentity();
             app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
@@ -67,6 +75,15 @@ namespace IssuesManager
             app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                LoginPath = new PathString("/Home"),
+                AccessDeniedPath = new PathString("/Home/Error"),
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                LogoutPath = new PathString("/Home/LogOff")                
+            });
 
             app.UseMvc(routes =>
             {

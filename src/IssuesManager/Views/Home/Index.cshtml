@@ -1,15 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div ng-controller="loginController" class="wrapper">
-    <form class="form-signin">
-        <h2 class="form-signin-heading">{{ 'LOGINTITLE' | translate }}</h2>
-        <input type="text" class="form-control" placeholder="{{ 'EMAILADDRESS' | translate }}" required="" autofocus="" ng-model="UserName" />
-        <input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}" required="" ng-model="password"/>
-        <label class="checkbox">
-            <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" ng-model="remember"> {{ 'REMEMBER' | translate }}
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" ng-click="LoginClick()" type="button">{{ 'LOGIN' | translate }}</button>
-        <span ng-class="{'text-danger' : LoginHasError(), 'text-success' : ResponseData.Result}" ng-bind="Message"></span>
-    </form>
+
+<div class="col-lg-offset-1 col-lg-4">
+    <div ng-controller="loginController" class="wrapper">
+        <form class="form-signin">
+            <h2 class="form-signin-heading">{{ 'LOGINTITLE' | translate }}</h2>
+            <input type="text" class="form-control" placeholder="{{ 'USERNAME' | translate }}" required="" autofocus="" ng-model="UserName" />
+            <input type="password" class="form-control" placeholder="{{ 'PASSWORD' | translate }}" required="" ng-model="password" />
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe" ng-model="remember"> {{ 'REMEMBER' | translate }}
+            </label>
+            <button class="btn btn-lg btn-primary btn-block" ng-click="LoginClick()" type="button">{{ 'LOGIN' | translate }}</button>
+            <span ng-class="{'text-danger' : LoginHasError(), 'text-success' : ResponseData.Result}" ng-bind="Message"></span>
+        </form>
+    </div>
+</div>
+<div class="col-lg-offset-2 col-lg-4" ng-controller="registerController">
+    @Html.Partial("PartialViews/RegistrationForm.cshtml")
 </div>
