@@ -29,7 +29,7 @@
 </head>
 <body>
 
-    <div ng-app="root" ng-cloak class="container body-content">
+    <div @*ng-app="root" ng-cloak*@ class="container body-content">
         @RenderBody()
     </div>
 
@@ -37,10 +37,6 @@
         <script src="~/lib/angular/angular.min.js"></script>
         <script src="~/lib/angular-bootstrap/ui-bootstrap.js"></script>
         <script src="~/lib/angular-translate/angular-translate.min.js"></script>
-
-        <script src="~/js/Login/Login.js"></script>
-        <script src="~/js/Login/Constants.js"></script>
-        <script src="~/js/Login/Services.js"></script>
 
 
     </environment>
@@ -53,11 +49,6 @@
                 asp-fallback-src="~/lib/angular-bootstrap/ui-bootstrap.js"
                 asp-fallback-test="window.angular">
         </script>
-
-        <script src="~/js/Login/Login.js"></script>
-        <script src="~/js/Login/Constants.js"></script>
-        <script src="~/js/Login/Services.js"></script>
-        <script src="~/js/Login/Translations.js"></script>
         <script src="~/lib/angular-translate/angular-translate.min.js"></script>
     </environment>
 

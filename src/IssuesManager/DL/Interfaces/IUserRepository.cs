@@ -10,5 +10,7 @@ namespace IssuesManager.DL.Interfaces
     {
         Task<bool> Login(string UserName, string Password, bool remember);
         Task<bool> Add(IssuesManagerUser user, string Password);
+        Task<string> GenerateEmailConfirmation(IssuesManagerUser user);
+        Task<bool> ConfirmEmail(string Id, string token);
     }
 }

@@ -11,6 +11,9 @@ namespace IssuesManager.DL
 {
     using Exceptions;
     using Interfaces;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Routing;
 
     public class UserRepository : IUserRepository
     {
@@ -30,8 +33,22 @@ namespace IssuesManager.DL
 
         public async Task<bool> Login(string UserName, string Password, bool remember)
         {
-            var result = await loginManager.PasswordSignInAsync(UserName, Password, remember, false);
-            return result.Succeeded;
+            IssuesManagerUser user = await userManager.FindByNameAsync(UserName);
+            if (user != null && user.EmailConfirmed)
+            {
+                var LoginResult = await loginManager.PasswordSignInAsync(user, Password, remember, false);
+                return LoginResult.Succeeded;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<string> GenerateEmailConfirmation(IssuesManagerUser user)
+        {
+            return await userManager.
+                 GenerateEmailConfirmationTokenAsync(user);
         }
 
         public async Task<bool> Add(IssuesManagerUser user, string Password)
@@ -62,6 +79,14 @@ namespace IssuesManager.DL
             {
                 throw new UserCreationException("User could not be created");
             }
+        }
+
+        public async Task<bool> ConfirmEmail(string Id, string token)
+        {
+            IssuesManagerUser user = await userManager.FindByIdAsync(Id);
+            var ConfirmationResult = await userManager.ConfirmEmailAsync(user, token);
+
+            return ConfirmationResult.Succeeded;
         }
     }
 }

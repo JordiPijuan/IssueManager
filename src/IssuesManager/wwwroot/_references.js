@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="js/common/loadingdirective.js" />
 /// <reference path="js/login/constants.js" />
 /// <reference path="js/login/login.js" />
 /// <reference path="js/login/services.js" />

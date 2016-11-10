@@ -14,6 +14,7 @@ using IssuesManager.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Net;
+using IssuesManager.Tools;
 
 namespace IssuesManager
 {
@@ -50,6 +51,8 @@ namespace IssuesManager
                 .AddDefaultTokenProviders();
 
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddSingleton<IEmailService, EmailService>();
 
             services.AddMvc();
         }

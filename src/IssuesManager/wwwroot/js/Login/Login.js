@@ -1,47 +1,66 @@
-﻿var App = angular.module("root", ["DataServices", 'pascalprecht.translate']);
+﻿var App = angular.module("root", ["DataServices", 'pascalprecht.translate', 'loading']);
 
-App.controller("loginController", ["$scope", "UserAPI", "$window", function ($scope, UserAPI, $window) {
-    $scope.ResponseData = { Result : true }
-
+App.controller("loginController", ["$scope", "UserAPI", "$window", "$translate", function ($scope, UserAPI, $window, $translate) {
+    $scope.ResponseData = { Result: true }
+    $scope.ShowLoginForm = true;
+    $scope.loading = false;
     $scope.LoginHasError = function () { return !$scope.ResponseData.Result; };
     $scope.LoginHasSuccess = function () { return $scope.ResponseData.Result; };
 
     $scope.LoginClick = function () {
+
+        $scope.ShowLoginForm = false;
+        $scope.loading = true;
+
         UserAPI.Login($scope.UserName, $scope.password, $scope.remember, function (ResultData) {
             $scope.ResponseData = ResultData;
 
             if ($scope.ResponseData.Result) {
-                $scope.Message = "· User logged in";
+
+                $translate("USERLOGEDIN").then(function (translation) {
+                    $scope.Message = translation;
+                });
+
                 $window.location.href = "/Landing";
             } else {
-                $scope.Message = "· Something went bad";
-                $scope.UserName = "";
-                $scope.password = "";
+                $scope.loading = false;
+                $scope.ShowLoginForm = true;
+
+                $translate("SOMETHINGWENTBAD").then(function (translation) {
+                    $scope.Message = translation;
+                });
                 $scope.remember = false;
             }
         });
     }
 }]);
 
-App.controller("registerController", ["$scope", "UserAPI", function ($scope, UserAPI) {
+App.controller("registerController", ["$scope", "UserAPI", "$translate", function ($scope, UserAPI, $translate) {
     $scope.ResponseData = { Result: true }
-
+    $scope.ShowRegisterForm = true;
     $scope.LoginHasError = function () { return !$scope.ResponseData.Result; };
     $scope.LoginHasSuccess = function () { return $scope.ResponseData.Result; };
-
+    $scope.loading = false;
     $scope.RegisterClick = function () {
+
+        $scope.loading = true;
+        $scope.ShowRegisterForm = false;
+        $scope.Message = "";
         UserAPI.Register($scope.Name, $scope.Email, $scope.UserName, $scope.Password, $scope.RePassword, function (Result) {
             $scope.ResponseData = Result;
 
             if ($scope.ResponseData.Result) {
-                $scope.Message = "· User registered";
+                $scope.ShowRegisterForm = false;
+                $scope.loading = false;
+                $translate("USERREGISTERED").then(function (translation) {
+                    $scope.Message = translation;
+                });
             } else {
-                $scope.Message = "· Something went bad";
-                $scope.Name = "";
-                $scope.Email = "";
-                $scope.UserName = "";
-                $scope.Password = "";
-                $scope.RePassword = "";
+                $scope.ShowRegisterForm = true;
+                $scope.loading = false;
+                $translate("SOMETHINGWENTBAD").then(function (translation) {
+                    $scope.Message = translation;
+                });
             }
         });
     };
@@ -64,7 +83,10 @@ App.config(["$translateProvider", function ($translateProvider) {
         ENTERYOUREMAIL: "Enter your email",
         ENTERYOURUSERNAME: "Enter your Username",
         ENTERYOURPASSWORD: "Enter your Password",
-        RETYPEYOURPASSWORD: "Retype your Password"
+        RETYPEYOURPASSWORD: "Retype your Password",
+        USERLOGEDIN: "· User Loged In",
+        SOMETHINGWENTBAD: "· Something Went Bad",
+        USERREGISTERED: "· User Registered"
     };
 
     var translationes = {
@@ -82,11 +104,14 @@ App.config(["$translateProvider", function ($translateProvider) {
         ENTERYOUREMAIL: "Introduce tu email",
         ENTERYOURUSERNAME: "Introduce tu usuario",
         ENTERYOURPASSWORD: "Introduce tu contraseña",
-        RETYPEYOURPASSWORD: "Vuelve a introducir tu contraseña"
+        RETYPEYOURPASSWORD: "Vuelve a introducir tu contraseña",
+        USERLOGEDIN: "· Usuario Logeado",
+        SOMETHINGWENTBAD: "· Algo ha funcionado mal",
+        USERREGISTERED: "· Usuario registrado"
     }
 
     $translateProvider
         .translations('en', translationsen)
         .translations('es', translationes)
-        .preferredLanguage('es');
+        .preferredLanguage('en');
 }]);
